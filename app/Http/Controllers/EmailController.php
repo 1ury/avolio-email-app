@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\EmailLog;
 use App\Models\User;
+use App\Services\EmailService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 
@@ -28,7 +29,7 @@ class EmailController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(Request $request)
+    public function store(Request $request, EmailService $service)
     {
         $data = $request->validate([
             'name'    => 'required|string|max:100',
@@ -37,21 +38,7 @@ class EmailController extends Controller
             'content' => 'required|string',
         ]);
 
-        $user = User::create([
-            'name'  => $data['name'],
-            'email' => $data['email'],
-        ]);
-
-        Mail::raw($data['content'], function ($message) use ($data) {
-            $message->to($data['email'])
-                ->subject('Message from Avolio Squad App');
-        });
-
-        EmailLog::create([
-            'user_id' => $user->id,
-            'content' => $data['content'],
-            'sent_at' => now(),
-        ]);
+        $service->sendAndLog($data);
 
         return redirect()->back()->with('success', 'Email sent successfully!');
     }
