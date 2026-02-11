@@ -20,7 +20,6 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
-        'password',
     ];
 
     /**
@@ -42,7 +41,10 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-
+    /**
+     * Summary of emailLogs
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function emailLogs()
     {
         return $this->hasMany(EmailLog::class);

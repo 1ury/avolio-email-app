@@ -13,7 +13,9 @@ class EmailLog extends Model
         'content',
         'sent_at'
     ];
-
+    /**
+     * Get the user that owns the email log.
+     */
     public function user()
     {
         return $this->belongsTo(User::class);
