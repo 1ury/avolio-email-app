@@ -10,6 +10,12 @@ use Illuminate\Support\Facades\DB;
 
 class EmailService
 {
+    public function getEmailLogs()
+    {
+        return EmailLog::with('user')
+            ->orderByDesc('sent_at')
+            ->get();
+    }
     public function sendAndLog(array $data): void
     {
         DB::transaction(function () use ($data) {

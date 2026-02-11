@@ -21,16 +21,6 @@ Key Laravel features used in this project:
 * Logging system
 * Mail system
 
----
-
-### 🔹 MySQL
-
-Relational database used to persist:
-
-* User profile data (name and email)
-* History of sent emails
-
-MySQL was chosen to better represent a real-world production environment, as it is widely used in PHP applications.
 
 ---
 
@@ -49,8 +39,6 @@ For this project, the **`log` mail driver** is used, which:
 ```
 storage/logs/laravel.log
 ```
-
-This approach is ideal for **technical challenges and local development**.
 
 ---
 

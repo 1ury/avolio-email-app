@@ -16,11 +16,10 @@ class EmailController extends Controller
      *
      * @return \Illuminate\View\View
      */
-    public function index()
+    public function index(EmailService $service)
     {
-        $emails = EmailLog::with('user')
-            ->orderByDesc('sent_at')
-            ->get();
+
+        $emails = $service->getEmailLogs();
 
         return view('emails.index', compact('emails'));
     }
