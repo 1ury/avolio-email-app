@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Mail\UserEmail;
 use App\Models\User;
 use App\Models\EmailLog;
 use Illuminate\Support\Facades\Mail;
@@ -17,10 +18,7 @@ class EmailService
                 'email' => $data['email'],
             ]);
 
-            Mail::raw($data['content'], function ($message) use ($data) {
-                $message->to($data['email'])
-                    ->subject('Message from Avolio Squad App');
-            });
+            Mail::to($data['email'])->send(new UserEmail($data['content']));
 
             EmailLog::create([
                 'user_id' => $user->id,

@@ -232,11 +232,62 @@ You will find the full email content, including:
 
 ---
 
+## 🧪 Automated Tests
+
+This project includes automated tests to validate the email sending and logging flow.
+
+Laravel provides a powerful testing layer built on top of PHPUnit, allowing tests to run in isolation without sending real emails or affecting production data.
+
+### 🔹 Email Tests
+
+For email-related tests, Laravel’s `Mail::fake()` feature is used. This ensures that:
+
+* No real emails are sent during test execution
+* The correct Mailable class is dispatched
+* The recipient address is validated
+
+Example approach used in tests:
+
+* Fake the mail system
+* Trigger the email sending endpoint
+* Assert that the expected Mailable was sent
+
+---
+
+### 🔹 Database Assertions
+
+Tests also verify that emails are properly logged in the database by asserting records in the `email_logs` table.
+
+Laravel’s `RefreshDatabase` trait is used to ensure:
+
+* A clean database state for each test
+* Reliable and repeatable test results
+
+---
+
+### ▶️ Running the tests
+
+To execute the test suite, run:
+
+```bash
+php artisan test
+```
+
+or
+
+```bash
+vendor/bin/phpunit
+```
+
+All tests run using the configured environment and do not require external services.
+
+---
+
 ## 🚀 Possible future improvements
 
-* Use of `Mailable` classes
-* Advanced validations
-* Automated tests
+* Use of `Mailable` classes with HTML templates
+* More advanced validation rules
+* Additional automated tests (edge cases)
 * Pagination for the email list
 * Dockerized development environment
 
