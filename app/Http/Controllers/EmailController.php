@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\SendEmailRequest;
 use App\Models\EmailLog;
 use App\Models\User;
 use App\Services\EmailService;
@@ -29,16 +30,9 @@ class EmailController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(Request $request, EmailService $service)
+    public function store(SendEmailRequest $request, EmailService $service)
     {
-        $data = $request->validate([
-            'name'    => 'required|string|max:100',
-            'email'   => 'required|email|max:150',
-            'phone'   => 'nullable|string|max:20',
-            'content' => 'required|string',
-        ]);
-
-        $service->sendAndLog($data);
+        $service->sendAndLog($request->validated());
 
         return redirect()->back()->with('success', 'Email sent successfully!');
     }
